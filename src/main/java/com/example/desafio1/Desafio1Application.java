@@ -6,6 +6,7 @@ import com.example.desafio1.entities.Contrato;
 import com.example.desafio1.service.ClienteServiceI;
 import com.example.desafio1.service.ContratoServiceI;
 import com.example.desafio1.service.ContratoServiceImpl;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -55,11 +56,18 @@ public class Desafio1Application implements CommandLineRunner {
         
         Contrato contrato1 = new Contrato();
         contrato1.setPrecio(1000);
+        
         contrato1.setFecha_caducidad(new Date(2020, 12, 31));
         contrato1.setFecha_vigencia(new Date(2019, 01, 01));
         contrato1.setCliente(c1);
         
         contratoService.insertar(contrato1);
+        
+        contrato1.setPrecio(2000);
+        contratoService.actualizar(contrato1);
+        
+        contratoService.consultarTodos();
+        contratoService.buscarPorCliente(c1.getId());
         
     }
 
