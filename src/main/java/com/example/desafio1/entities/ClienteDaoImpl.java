@@ -61,7 +61,11 @@ public class ClienteDaoImpl implements ClienteDaoI {
 
     @Override
     public void eliminar(Cliente cliente) {
-        
+        Session session = entityManager.unwrap(Session.class);
+
+        entityManager.remove(entityManager.merge(cliente));
+
+        session.close();
     }
 
     @Override

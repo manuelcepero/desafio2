@@ -2,7 +2,11 @@ package com.example.desafio1;
 
 import com.example.desafio1.entities.Cliente;
 import com.example.desafio1.entities.ClienteDaoI;
+import com.example.desafio1.entities.Contrato;
 import com.example.desafio1.service.ClienteServiceI;
+import com.example.desafio1.service.ContratoServiceI;
+import com.example.desafio1.service.ContratoServiceImpl;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +17,9 @@ public class Desafio1Application implements CommandLineRunner {
 
     @Autowired
     private ClienteServiceI clienteService;
+    
+    @Autowired
+    private ContratoServiceI contratoService;
 
     public static void main(String[] args) {
         SpringApplication.run(Desafio1Application.class, args);
@@ -43,6 +50,17 @@ public class Desafio1Application implements CommandLineRunner {
         clienteService.consultarTodos();
         
         clienteService.buscarPorNombre(c1);
+        
+        clienteService.eliminar(c2);
+        
+        Contrato contrato1 = new Contrato();
+        contrato1.setPrecio(1000);
+        contrato1.setFecha_caducidad(new Date(2020, 12, 31));
+        contrato1.setFecha_vigencia(new Date(2019, 01, 01));
+        contrato1.setCliente(c1);
+        
+        contratoService.insertar(contrato1);
+        
     }
 
 }

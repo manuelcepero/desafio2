@@ -5,33 +5,39 @@
  */
 package com.example.desafio1.entities;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
  * @author Manuel
  */
-
 @Entity
-@Table(name="CLIENTE")
+@Table(name = "CLIENTE")
 public class Cliente {
-    
+
     private Long id;
-    
+
     private String nombre;
-    
+
     private String primer_apellido;
-    
+
     private String segundo_apellido;
-    
+
     private String dni;
 
-    
+    private List<Contrato> listaContratos;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CLIENTE", precision = 15)
@@ -43,7 +49,7 @@ public class Cliente {
         this.id = id;
     }
 
-    @Column(name="NOMBRE", nullable=false, length=50)
+    @Column(name = "NOMBRE", nullable = false, length = 50)
     public String getNombre() {
         return nombre;
     }
@@ -52,7 +58,7 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    @Column(name="PRIMER_APELLIDO", nullable=false, length=50)
+    @Column(name = "PRIMER_APELLIDO", nullable = false, length = 50)
     public String getPrimer_apellido() {
         return primer_apellido;
     }
@@ -60,8 +66,8 @@ public class Cliente {
     public void setPrimer_apellido(String primer_apellido) {
         this.primer_apellido = primer_apellido;
     }
-    
-    @Column(name="SEGUNDO_APELLIDO", nullable=false, length=50)
+
+    @Column(name = "SEGUNDO_APELLIDO", nullable = false, length = 50)
     public String getSegundo_apellido() {
         return segundo_apellido;
     }
@@ -70,7 +76,7 @@ public class Cliente {
         this.segundo_apellido = segundo_apellido;
     }
 
-    @Column(name="DNI",  unique = true, nullable=false, length = 9)
+    @Column(name = "DNI", unique = true, nullable = false, length = 9)
     public String getDni() {
         return dni;
     }
@@ -78,5 +84,14 @@ public class Cliente {
     public void setDni(String dni) {
         this.dni = dni;
     }
-    
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+    public List<Contrato> getListaContratos() {
+        return listaContratos;
+    }
+
+    public void setListaContratos(List<Contrato> listaContratos) {
+        this.listaContratos = listaContratos;
+    }
+
 }
